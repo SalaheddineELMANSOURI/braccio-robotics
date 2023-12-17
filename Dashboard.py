@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import ImageTk, Image, ImageDraw
+from PIL import ImageTk
 from datetime import *
 import time
 import keyboard

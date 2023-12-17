@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import time
         
 def getMarkerCoordinates(markers,ids,point=0): #take first corner of th emarker, if point equal to 5, get center
     #nr_of_markers=len(markers)

@@ -1,0 +1,9 @@
+time
+opencv-python
+numpy
+keyboard
+serial
+tk
+Pillow
+DateTime
+sympy
