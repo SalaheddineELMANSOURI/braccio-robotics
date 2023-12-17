@@ -1,14 +1,3 @@
-# -*- coding: utf-8 -*-
-# """
-# Created on Sun Nov 28 12:21:04 2021
-
-# @author: natan
-# """
-
-
-# Importing Libraries
-# %%
-
 import serial
 import time
 import solverNNA
@@ -18,8 +7,9 @@ base =[0,0,180,0]  #default value for base, min value and max value, write locat
 shoulder=[150,15,165,1]
 elbow=[0,0,180,2]
 wrist=[180,0,180,3]
-wristRot=[180,0,180,4]
-gripper=[180,180,0,5]
+wristRot=[90,0,180,4]
+gripper=[10,73,10,5]
+
 
 
 arm = serial.Serial('COM4', 115200, timeout=5)
@@ -32,8 +22,8 @@ time.sleep(2)
 
 def write_arduino(angles):
     
-    angles[0]=180-angles[0]  #invert degrees for base
-    angles[3]=180-angles[3]  #invert degrees for base
+    angles[0]=195-angles[0]  #invert degrees for base
+    angles[3]=angles[3]
     angle_string=','.join([str(elem) for elem in angles])  # join the list values togheter
     angle_string="P"+angle_string+",200\n"    
     arm.write(angle_string.encode())          #.encode encodes the string to bytes
@@ -137,7 +127,7 @@ def close_gripper():
     
     
 def pick_up(x,y):
-    glass_pos=[310,95] #x,y pos of glass
+    glass_pos=[200,300] #x,y pos of glass
     delay=1  #delay between steps
     pick_up_heigth=10  #heigth of the object
     home()
@@ -153,9 +143,9 @@ def pick_up(x,y):
     time.sleep(delay)
     go_to_coordinate(x,y,200,"closed")
     time.sleep(delay)
-    go_to_coordinate(glass_pos[0],glass_pos[1],200,"closed")
+    go_to_coordinate(glass_pos[0],glass_pos[1],20,"closed")
     time.sleep(delay)
-    go_to_coordinate(glass_pos[0],glass_pos[1],120,"closed")
+    go_to_coordinate(glass_pos[0],glass_pos[1],5,"closed")
     time.sleep(delay)
     open_gripper()
     home()

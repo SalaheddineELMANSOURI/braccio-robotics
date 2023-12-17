@@ -1,15 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan  2 13:32:10 2022
-
-@author: natan
-"""
-
 from sympy import *
 from math import *
 import numpy as np
-
-#from braccio_control_python import get_previous_teta
 
 
 l0=71.5
@@ -31,8 +22,6 @@ def move_to_position_cart(x,y,z):
             theta_base=0
     else:
         theta_base=90-degrees(atan(x/y))  #add 2 degrees for backlash compensation
-    #print(theta_base)
-    #theta_base=backlash_compensation_base(theta_base)  #check if compensation is needed
     
     #calulcate angles for level operation
     
@@ -83,7 +72,6 @@ def backlash_compensation_base(theta_base):
     theta_base_prev=prev_angles[0]
     
     delta_theta_base=theta_base-theta_base_prev
-    # print(delta_theta_base)
     if delta_theta_base>1:
         if theta_base<=45:
             theta_base_comp=theta_base
@@ -91,10 +79,8 @@ def backlash_compensation_base(theta_base):
             index=int(round(theta_base-46))
             theta_base_comp=theta_base+compensation_value_CCW[index]
             theta_base_comp=round(theta_base_comp)
-            # print("base theta compensated CCW, val: "+str(round(compensation_value_CCW[theta_base-46])))
     if delta_theta_base<-1:
         theta_base_comp=theta_base-compensation_value_CW
-        # print("base theta compensated CW, val: "+str(compensation_value_CW))
 
         
     return theta_base_comp

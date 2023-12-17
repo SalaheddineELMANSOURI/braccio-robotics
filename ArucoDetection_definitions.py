@@ -1,32 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 11 20:42:49 2022
-
-@author: natan
-"""
-# %%
-
 import cv2
-#import cv2.aruco as aruco
 import numpy as np
 import time
-
-# def findArucoMarkers(img, markerSize = 4, totalMarkers=50, draw=True):    
-#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-#     key = getattr(cv2.aruco, f'DICT_{markerSize}X{markerSize}_{totalMarkers}')
-#     arucoDict = cv2.aruco.Dictionary_get(key)
-#     arucoParam = cv2.aruco.DetectorParameters_create()
-#     bboxs, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters = arucoParam)
-#     #print(bboxs)
-#     if draw:
-#         cv2.aruco.drawDetectedMarkers(img, bboxs) 
-#     if ids is not None:
-#         ids_sorted=[]
-#         for id_number in ids:
-#             ids_sorted.append(id_number[0])
-#     else:
-#         ids_sorted=ids
-#     return bboxs,ids_sorted
         
 def getMarkerCoordinates(markers,ids,point=0): #take first corner of th emarker, if point equal to 5, get center
     #nr_of_markers=len(markers)
@@ -43,14 +17,12 @@ def getMarkerCenter_foam(marker):
     right_top,ids =getMarkerCoordinates(marker,1,point=1) #2 corner    
     left_bot,ids =getMarkerCoordinates(marker,1,point=2) #3 corner
     right_bot,ids =getMarkerCoordinates(marker,1,point=3) #4 corner
-    #print(left_top)
     if bool(left_top):
         center_X=(left_top[0][0]+right_top[0][0]+left_bot[0][0]+right_bot[0][0])*0.25
         center_Y=(left_top[0][1]+right_top[0][1]+left_bot[0][1]+right_bot[0][1])*0.25
         markerCenter=[[int(center_X),int(center_Y)]]
     else:
         markerCenter=[[0,0]]
-    #print(markerCenter)
     return markerCenter
 
         
@@ -146,11 +118,3 @@ def four_point_transform(image, pts):
 	warped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
 	# return the warped image
 	return warped
-
-# # %%
-# url = 'http://192.168.0.12:8080/videofeed'
-# cap = cv2.VideoCapture(0)
-# #cap = videothreading.VideoGet(1)
-# square_points=[[10,10], [10,cv2.CAP_PROP_FRAME_WIDTH-10], [cv2.CAP_PROP_FRAME_HEIGHT-10, 10], [cv2.CAP_PROP_FRAME_HEIGHT-10,cv2.CAP_PROP_FRAME_WIDTH-10]] #initial square
-
-
